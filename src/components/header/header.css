@@ -1,0 +1,12 @@
+.header {
+    background-color: steelblue;
+    height: 7vh;
+    margin-bottom: 2vh;
+}
+
+.title {
+    text-align: left;
+    margin-top: 0.5vh;
+    margin-left: 1.5vh;
+    color: white;
+}
