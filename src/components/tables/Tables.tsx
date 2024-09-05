@@ -14,8 +14,7 @@ interface User {
     phone: string;
 }
 
-// Определяем тип для ключей, которые могут быть использованы в фильтрах
-type FilterKeys = keyof Omit<User, 'id'>; // исключаем 'id'
+type FilterKeys = keyof Omit<User, 'id'>;
 
 const Tables: React.FC = () => {
   const apiData = useSelector((state: RootState) => state.ApiDataState.apiData) as User[] | null;
@@ -28,7 +27,7 @@ const Tables: React.FC = () => {
     phone: '',
   });
 
-  const [selectedFilter, setSelectedFilter] = useState<FilterKeys>('name'); // Стейт для выбранного фильтра
+  const [selectedFilter, setSelectedFilter] = useState<FilterKeys>('name');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -44,7 +43,7 @@ const Tables: React.FC = () => {
   const handleFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFilters({
       ...filters,
-      [selectedFilter]: e.target.value, // Обновляем только выбранный фильтр
+      [selectedFilter]: e.target.value,
     });
   };
 
@@ -54,7 +53,7 @@ const Tables: React.FC = () => {
 
   const filteredData = (apiData || []).filter(user =>
     Object.entries(filters).every(([key, value]) => {
-      const userValue = user[key as FilterKeys]; // Приводим key к типу FilterKeys
+      const userValue = user[key as FilterKeys]; 
       return userValue ? userValue.toString().toLowerCase().includes(value.toLowerCase()) : false;
     })
   );
@@ -68,7 +67,7 @@ const Tables: React.FC = () => {
       <InputGroup className="mb-3">
         <Dropdown onSelect={(eventKey: any) => handleSelectFilter(eventKey as FilterKeys)}>
           <Dropdown.Toggle variant="outline-secondary">
-            {selectedFilter.charAt(0).toUpperCase() + selectedFilter.slice(1)} {/* Отображаем выбранный фильтр */}
+            {selectedFilter.charAt(0).toUpperCase() + selectedFilter.slice(1)}
           </Dropdown.Toggle>
 
           <Dropdown.Menu>
@@ -81,7 +80,7 @@ const Tables: React.FC = () => {
 
         <FormControl
           placeholder={`Filter by ${selectedFilter.charAt(0).toUpperCase() + selectedFilter.slice(1)}`}
-          value={filters[selectedFilter]} // Используем значение выбранного фильтра
+          value={filters[selectedFilter]}
           onChange={handleFilterChange}
         />
       </InputGroup>
